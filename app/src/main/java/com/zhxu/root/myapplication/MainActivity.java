@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -241,6 +242,15 @@ public class MainActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        // It is also possible add items here. Use a generated id from
+        // resources (ids.xml) to ensure that all menu ids are distinct.
+        MenuItem refreshItem = menu.add(0, R.id.menu_refresh, 0, R.string.menu_refresh);
+        refreshItem.setIcon(R.drawable.ic_action_refresh);
+
+        // Need to use MenuItemCompat methods to call any action item related methods
+        MenuItemCompat.setShowAsAction(refreshItem, MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
         Log.i(TAG, "onCreateOptionsMenu Method is executed");
         return super.onCreateOptionsMenu(menu);
     }
@@ -258,9 +268,15 @@ public class MainActivity extends BaseActivity {
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.action_search:
+                Toast.makeText(MainActivity.this, "Searching", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "Menu search is selected");
                 return true;
+            case R.id.menu_refresh:
+                Toast.makeText(MainActivity.this, "Refreshing", Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "Menu refresh is selected");
+                return true;
             case R.id.action_settings:
+                Toast.makeText(MainActivity.this, "Setting will be added", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "Menu setting is selected");
                 return true;
         }

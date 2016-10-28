@@ -6,5 +6,5 @@
     <string name="edit_message">Input your message here!</string>
     <string name="button_add">Add New</string>
     <string name="button_close">Close</string>
-    <string name="contact_list">Contact List:</string>
+    <string name="menu_refresh">Refresh</string>
 </resources>
