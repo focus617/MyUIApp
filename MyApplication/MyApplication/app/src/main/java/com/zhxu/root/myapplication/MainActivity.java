@@ -57,17 +57,15 @@ public class MainActivity extends BaseActivity {
 
         // prepare the book list
         bookList = new ArrayList<BookData>();
-
-        try{
-            if(!loadBookList()) {
+        initializeBookList();
+/*        try{
+            if(!load()) {
                 initializeBookList();
                 Log.i(TAG, "Construct the test bookList data.");
-            } else{
-                Log.i(TAG, "Load the test bookList data from SDCARD.");
             }
         }catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
 
         bookShelfView = (ListView) findViewById(R.id.listview_bookshelf);
         BookShelfListViewAdapter adapter = new BookShelfListViewAdapter(bookList, this);
@@ -80,7 +78,7 @@ public class MainActivity extends BaseActivity {
 
                 String message = "To be done:\n Open the selected book";
                 String bookName = bookList.get(id).get_BookName();
-                BookReaderActivity.actionStart(MainActivity.this, message, bookName);
+                DisplayMessageActivity.actionStart(MainActivity.this, message, bookName);
             }
         });
     }
@@ -113,10 +111,9 @@ public class MainActivity extends BaseActivity {
         bookList.add(book);
     }
 
-    private void saveBookList() {
+    public void save() {
         ObjectOutputStream writer = null;
 
-        Log.i(TAG, "bookList save() is invoked");
         try {
             FileOutputStream out = openFileOutput("data", Context.MODE_PRIVATE);
             writer = new ObjectOutputStream(out);
@@ -138,11 +135,10 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private boolean loadBookList() throws ClassNotFoundException{
+    public boolean load() throws ClassNotFoundException{
         ObjectInputStream reader = null;
         boolean result = false;
 
-        Log.i(TAG, "bookList load() is invoked");
         try {
             FileInputStream in = openFileInput("data");
             reader = new ObjectInputStream(in);
@@ -209,8 +205,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
-        saveBookList();
-
+        // save();
         super.onDestroy();
         Log.i(TAG, "onDestroy Method is executed");
     }
@@ -239,7 +234,7 @@ public class MainActivity extends BaseActivity {
         startService(intentService);*/
 
         String message = "To be done:\n adding new book into bookList";
-        BookReaderActivity.actionStart(MainActivity.this, message, null);
+        DisplayMessageActivity.actionStart(MainActivity.this, message, null);
     }
 
     // Add the menu to the action bar

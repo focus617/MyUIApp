@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zhxu.root.myapplication">
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -21,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BookReaderActivity"
+            android:name=".DisplayMessageActivity"
             android:label="@string/show_message"
             android:theme="@style/AppTheme.ActionBarOverlay">
         </activity>
