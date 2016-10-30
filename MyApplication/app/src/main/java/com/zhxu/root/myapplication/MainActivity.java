@@ -80,17 +80,18 @@ public class MainActivity extends BaseActivity{
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
-        super.onDestroy();
+
         Log.i(TAG, "onDestroy Method is executed");
 
-        Toast.makeText(MainActivity.this, "Bye", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Bye", Toast.LENGTH_SHORT).show();
         try {
             Thread.sleep(500);
         } catch (Exception ex) {
             ex.printStackTrace();
             Log.i(TAG, "Enter exception");
         }
-        ActivityCollector.finishAll();
+
+        super.onDestroy();
     }
 
     // Add the menu to the action bar
@@ -101,7 +102,7 @@ public class MainActivity extends BaseActivity{
 
         // It is also possible add items here. Use a generated id from
         // resources (ids.xml) to ensure that all menu ids are distinct.
-        MenuItem refreshItem = menu.add(0, R.id.menu_refresh, 0, R.string.menu_refresh);
+        MenuItem refreshItem = menu.add(0, R.id.menu_refresh, 0, R.string.action_refresh);
         refreshItem.setIcon(R.drawable.ic_action_refresh);
 
         // Need to use MenuItemCompat methods to call any action item related methods
@@ -135,30 +136,13 @@ public class MainActivity extends BaseActivity{
                 Toast.makeText(MainActivity.this, "Setting will be added", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "Menu setting is selected");
                 return true;
-            case R.id.menu_remove:
-                Toast.makeText(MainActivity.this, "Removing will be added", Toast.LENGTH_SHORT).show();
-                Log.i(TAG, "Menu remove is selected");
-                return true;       }
+            case R.id.menu_close:
+                Toast.makeText(MainActivity.this, "Close the APP", Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "Menu close is selected");
+                ActivityCollector.finishAll();
+                return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
 }
-
-
-
-/*    public void onClickAdd(View v) {
-        Log.i(TAG, "Add_Button is clicked");*/
-/*
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:10086"));
-        startActivity(intent);*/
-
-/*        // 打印主线程的id
-        Log.i(TAG, "MainThread id is " + Thread.currentThread().getId());
-        Intent intentService = new Intent(this, MyIntentService.class);
-        startService(intentService);*/
-
-/*        String message = "To be done:\n adding new book into bookList";
-        BookReaderActivity.actionStart(MainActivity.this, message, null);
-    }
-*/

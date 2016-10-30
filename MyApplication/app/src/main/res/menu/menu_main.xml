@@ -14,8 +14,8 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/menu_remove"
-        android:title="@string/action_remove"
+        android:id="@+id/menu_close"
+        android:title="@string/action_close"
         android:orderInCategory="100"
         app:showAsAction="never" />
 </menu>

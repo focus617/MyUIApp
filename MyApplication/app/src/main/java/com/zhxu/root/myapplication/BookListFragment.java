@@ -101,6 +101,12 @@ public class BookListFragment extends ListFragment {
 
         book = BookData.createBookData((String)"数据库",(String)"徐大林");
         bookList.add(book);
+
+        book = BookData.createBookData((String)"西陵帝国",(String)"同感");
+        bookList.add(book);
+
+        book = BookData.createBookData((String)"设计模式",(String)"徐大林");
+        bookList.add(book);
     }
 
     private void saveBookList() {
@@ -167,24 +173,6 @@ public class BookListFragment extends ListFragment {
         saveBookList();
     }
 
-    @Override
-    public void onListItemClick(ListView listView, final View view, int position, long id) {
-            Log.d(TAG, "onListItemClick");
-
-            String bookName = bookList.get((int)id).get_BookName();
-            // Show a toast if the user clicks on an item
-            Toast.makeText(getContext(), "Item Clicked: " + bookName, Toast.LENGTH_SHORT).show();
-
-            // We need to post a Runnable to show the popup to make sure that the PopupMenu is
-            // correctly positioned. The reason being that the view may change position before the
-            // PopupMenu is shown.
-           view.post(new Runnable() {
-                @Override
-                public void run() {
-                    showPopupMenu(view);
-                }
-            });
-    }
 
     class BookShelfListViewAdapter extends ArrayAdapter<BookData> {
 
@@ -253,11 +241,27 @@ public class BookListFragment extends ListFragment {
         }
     }
 
-    private void showPopupMenu(final View view) {
-        //final PopupListFragment.PopupAdapter adapter = (PopupListFragment.PopupAdapter) getListAdapter();
+    @Override
+    public void onListItemClick(ListView listView, final View view, int position, final long id) {
+        Log.d(TAG, "onListItemClick");
 
-        // Retrieve the clicked item from view's tag
-        //final String item = (String) view.getTag();
+        String bookName = bookList.get((int)id).get_BookName();
+        // Show a toast if the user clicks on an item
+        Toast.makeText(getActivity(), "Item Clicked: " + bookName, Toast.LENGTH_SHORT).show();
+
+        // We need to post a Runnable to show the popup to make sure that the PopupMenu is
+        // correctly positioned. The reason being that the view may change position before the
+        // PopupMenu is shown.
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                showPopupMenu(view, (int)id);
+            }
+        });
+    }
+    private void showPopupMenu(final View view, final int id) {
+        final BookListFragment.BookShelfListViewAdapter adapter =
+             (BookListFragment.BookShelfListViewAdapter) getListAdapter();
 
         // Create a PopupMenu, giving it the clicked view for an anchor
         PopupMenu popup = new PopupMenu(getActivity(), view);
@@ -272,7 +276,11 @@ public class BookListFragment extends ListFragment {
                 switch (menuItem.getItemId()) {
                     case R.id.menu_remove:
                         // Remove the item from the adapter
-                        //adapter.remove(item);
+                        adapter.remove(bookList.get(id));
+                        return true;
+                    case R.id.menu_open:
+                        // Open the BookReaderFragment to show the item from the adapter
+                        //adapter.getItem(item);
                         return true;
                 }
                 return false;
@@ -282,6 +290,29 @@ public class BookListFragment extends ListFragment {
         // Finally show the PopupMenu
         popup.show();
     }
+
+
+
+
+/*    public void onClickAdd(View v) {
+        Log.i(TAG, "Add_Button is clicked");*/
+/*
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:10086"));
+        startActivity(intent);*/
+
+/*        // 打印主线程的id
+        Log.i(TAG, "MainThread id is " + Thread.currentThread().getId());
+        Intent intentService = new Intent(this, MyIntentService.class);
+        startService(intentService);*/
+
+/*        String message = "To be done:\n adding new book into bookList";
+        BookReaderActivity.actionStart(MainActivity.this, message, null);
+    }
+*/
+
+
+
 }
 
 
