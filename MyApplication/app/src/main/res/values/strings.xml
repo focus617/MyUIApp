@@ -3,10 +3,13 @@
     <string name="show_message">Receive Message</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">Searching</string>
+    <string name="action_remove">Remove</string>
     <string name="edit_message">Input your message here!</string>
     <string name="button_add">New Book</string>
-    <string name="button_save">Save</string>
+    <string name="button_new_activity">New Activity</string>
     <string name="button_open">Open</string>
     <string name="button_close">Close</string>
     <string name="menu_refresh">Refresh</string>
+    <string name="menu_remove">Remove</string>
+    <string name="content_open_popup">Open Popup Menu</string>
 </resources>

@@ -40,6 +40,13 @@ public class BookShelfListViewAdapter extends BaseAdapter {
         return position;
     }
 
+
+    private class ViewHolder{
+        ImageView bookImageView = null;
+        TextView  bookNameTextView = null;
+        TextView  bookAuthorTextView = null;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         View view;
@@ -75,13 +82,6 @@ public class BookShelfListViewAdapter extends BaseAdapter {
             }
             viewHolder.bookImageView.setImageBitmap(cover);
         }
-
         return view;
-    }
-
-    private class ViewHolder{
-        ImageView bookImageView = null;
-        TextView  bookNameTextView = null;
-        TextView  bookAuthorTextView = null;
     }
 }

@@ -17,7 +17,7 @@
 <resources>
 
     <!--
-        Generate an id which can be used when the location menu item is added in MainActivity
+        Generate an id which can be used when the location menu item is added in TestPopupMenuActivity
     -->
     <item name="menu_refresh" type="id"/>
 

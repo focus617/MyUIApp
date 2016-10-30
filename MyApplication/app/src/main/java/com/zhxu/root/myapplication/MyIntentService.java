@@ -10,7 +10,7 @@ import android.util.Log;
 
 public class MyIntentService extends IntentService {
 
-        private static final String SvrTAG = "MainActivity";
+        private static final String SvrTAG = "TestPopupMenuActivity";
 
         public MyIntentService() {
             super("MyIntentService");
