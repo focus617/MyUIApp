@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BookReaderActivity"
+            android:name="com.zhxu.root.unused.BookReaderActivity"
             android:label="@string/show_message"
             android:theme="@style/AppTheme.ActionBarOverlay">
         </activity>

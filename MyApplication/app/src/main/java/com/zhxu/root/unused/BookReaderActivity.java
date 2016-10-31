@@ -1,4 +1,4 @@
-package com.zhxu.root.myapplication;
+package com.zhxu.root.unused;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +8,6 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +23,7 @@ import java.io.OutputStreamWriter;
 
 import com.example.android.actionbarcompat.listpopupmenu.TestPopupMenuActivity;
 import com.zhxu.root.myUtility.BaseActivity;
+import com.zhxu.root.myapplication.R;
 
 public class BookReaderActivity extends BaseActivity {
 
@@ -49,16 +49,6 @@ public class BookReaderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_reader);
 
-    /* Replaced by above new TextView
-        TextView textView = new TextView(this);
-        textView.setTextSize(30);
-        textView.setTextColor(R.color.white);
-        textView.setText(message);
-
-        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_display_message);
-        layout.addView(textView);
-     */
-
         mView_BookReader = (TextView) findViewById(R.id.textview_bookreader);
         mView_BookReader.setTextSize(20);
         mView_BookReader.setTextColor(Color.WHITE);
@@ -66,7 +56,7 @@ public class BookReaderActivity extends BaseActivity {
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(EXTRA_MESSAGE);
-        Toast.makeText(BookReaderActivity.this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
         mBookName = intent.getStringExtra(BOOK_NAME);
 
@@ -104,13 +94,13 @@ public class BookReaderActivity extends BaseActivity {
     public void onClickOpen(View v) {
         Log.i(TAG, "Open_Button is clicked");
 
-        Toast.makeText(BookReaderActivity.this, "open the file", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "open the file", Toast.LENGTH_SHORT).show();
         //   mView_BookReader.setText(load());
     }
 
     public void onClickNewActivity(View v) {
         Log.i(TAG, "New_Activity_Button is clicked");
-        Toast.makeText(BookReaderActivity.this, "Start the PopupMenu Activity", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Start the PopupMenu Activity", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, TestPopupMenuActivity.class);
         startActivity(intent);

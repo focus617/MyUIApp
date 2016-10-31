@@ -1,5 +1,7 @@
 package com.zhxu.root.myapplication;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -37,6 +39,7 @@ import java.util.ArrayList;
 public class BookListFragment extends ListFragment {
     private static final String TAG = "BookListFragment";
 
+    private boolean isTwoPane;
     private ArrayList<BookData> bookList = null;
 
     public ArrayList<BookData> getBookList() {
@@ -67,13 +70,6 @@ public class BookListFragment extends ListFragment {
         setListAdapter(new BookShelfListViewAdapter(bookList));
     }
 
-
-/*    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        Log.d(TAG, "onActivityCreated");
-        super.onActivityCreated(savedInstanceState);
-        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-    }*/
 
     private void initializeBookList() {
         BookData book;
@@ -165,6 +161,37 @@ public class BookListFragment extends ListFragment {
             }
         }
         return result;
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView");
+
+        return super.onCreateView(inflater,container,savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, "onCreateView");
+
+        if (getActivity().findViewById(R.id.book_reader) != null) {
+            isTwoPane = true; // 可以找到book_reader布局时,为双页模式
+        } else {
+            isTwoPane = false; // 找不到book_reader布局时,为单页模式
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+
+        getActivity().setTitle(R.string.app_name);
+        Log.d(TAG, "setTitle");
+        //getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
 
     @Override
@@ -263,8 +290,10 @@ public class BookListFragment extends ListFragment {
         final BookListFragment.BookShelfListViewAdapter adapter =
              (BookListFragment.BookShelfListViewAdapter) getListAdapter();
 
+        final String bookName = bookList.get(id).get_BookName();
+
         // Create a PopupMenu, giving it the clicked view for an anchor
-        PopupMenu popup = new PopupMenu(getActivity(), view);
+        final PopupMenu popup = new PopupMenu(getActivity(), view);
 
         // Inflate our menu resource into the PopupMenu's Menu
         popup.getMenuInflater().inflate(R.menu.popup, popup.getMenu());
@@ -279,8 +308,23 @@ public class BookListFragment extends ListFragment {
                         adapter.remove(bookList.get(id));
                         return true;
                     case R.id.menu_open:
-                        // Open the BookReaderFragment to show the item from the adapter
-                        //adapter.getItem(item);
+                        if (isTwoPane){
+                            // 如果是双页模式,则刷新Book Reader Fragment中的内容
+                            BookReaderFragment fragment = (BookReaderFragment)getFragmentManager().findFragmentById(R.id.layout_book_reader);
+                            fragment.setBookName(bookName);
+                            fragment.refresh();
+                        } else {
+                            // 如果是单页模式,则直接启动BookReaderActivity ????
+                            // Replace window to BookReaderFragment and show the item from the adapter
+                            BookReaderFragment fragment = new BookReaderFragment();
+                            fragment.setBookName(bookName);
+
+                            FragmentManager fragmentManager = getFragmentManager();
+                            FragmentTransaction transaction = fragmentManager.beginTransaction();
+                            transaction.replace(R.id.book_list, fragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                        }
                         return true;
                 }
                 return false;
@@ -290,29 +334,6 @@ public class BookListFragment extends ListFragment {
         // Finally show the PopupMenu
         popup.show();
     }
-
-
-
-
-/*    public void onClickAdd(View v) {
-        Log.i(TAG, "Add_Button is clicked");*/
-/*
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:10086"));
-        startActivity(intent);*/
-
-/*        // 打印主线程的id
-        Log.i(TAG, "MainThread id is " + Thread.currentThread().getId());
-        Intent intentService = new Intent(this, MyIntentService.class);
-        startService(intentService);*/
-
-/*        String message = "To be done:\n adding new book into bookList";
-        BookReaderActivity.actionStart(MainActivity.this, message, null);
-    }
-*/
-
-
-
 }
 
 
