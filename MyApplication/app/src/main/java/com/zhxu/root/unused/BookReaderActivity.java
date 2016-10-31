@@ -20,8 +20,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-
-import com.example.android.actionbarcompat.listpopupmenu.TestPopupMenuActivity;
 import com.zhxu.root.myUtility.BaseActivity;
 import com.zhxu.root.myapplication.R;
 
@@ -98,15 +96,13 @@ public class BookReaderActivity extends BaseActivity {
         //   mView_BookReader.setText(load());
     }
 
-    public void onClickNewActivity(View v) {
+/*    public void onClickNewActivity(View v) {
         Log.i(TAG, "New_Activity_Button is clicked");
         Toast.makeText(this, "Start the PopupMenu Activity", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, TestPopupMenuActivity.class);
         startActivity(intent);
-
-        //createTestFile();
-    }
+    }*/
 
     protected BufferedReader loadBook(String bookName) {
         BufferedReader rd = null;
