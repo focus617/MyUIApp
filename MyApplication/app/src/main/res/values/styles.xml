@@ -1,46 +1,89 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="@style/AppBaseTheme"></style>
+
+    <!-- Base application theme for ToolBar -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <!--导航栏底色-->
         <item name="colorPrimary">@color/colorPrimary</item>
+
+        <!--状态栏底色-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:actionBarStyle">@style/MyActionBar</item>
-        <item name="android:textColor">@color/navy</item>
+
+        <!--导航栏上的标题颜色-->
+        <item name="android:textColorPrimary">@color/white</item>
+
+        <!--Activity窗口的颜色-->
+        <item name="android:windowBackground">@color/material_blue_grey_800</item>
+
+        <!--按钮选中或者点击获得焦点后的颜色-->
+        <item name="colorAccent">@color/rosybrown</item>
+
+        <!--和 colorAccent相反，正常状态下按钮的颜色-->
+        <item name="colorControlNormal">#ff0000</item>
+
+        <!--Button按钮正常状态颜色-->
+        <item name="colorButtonNormal">@color/accent_material_light</item>
+
+        <!--EditText 输入框中字体的颜色-->
+        <item name="editTextColor">@android:color/black</item>
+
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name= "android:listDivider">@drawable/divider </item >
+
     </style>
 
-    <!-- Action Bar Style -->
-    <style name="MyActionBar"
-        parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">false</item>
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:actionMenuTextColor">@color/white</item>
+    <!-- toolbar菜单样式 -->
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="actionMenuTextColor">@android:color/holo_red_light</item>
+        <item name="selectableItemBackground">@drawable/toolbar_button_bg</item>
     </style>
 
-    <style name="AppTheme.ActionBarOverlay"  parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:actionBarStyle">@style/MyActionBar1</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
-
-        <!-- <item name="actionBarStyle">@style/MyActionBar</item> -->
+    <!-- toolbar弹出菜单样式 -->
+    <style name="ToolbarPopupTheme" parent="@style/ThemeOverlay.AppCompat">
+        <item name="android:colorBackground">@color/colorPrimaryDark</item>
     </style>
 
-    <!-- Action Bar Style -->
-    <style name="MyActionBar1"
-           parent="@android:style/Widget.Holo.ActionBar.TabView">
-        <item name="android:background">@color/colorPrimary</item>
+
+    <!-- Base application theme for Action Bar -->
+    <style name="AppTheme1" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+            <!-- Customize your theme here. -->
+            <item name="colorPrimary">@color/colorPrimary</item>
+            <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+            <item name="colorAccent">@color/rosybrown</item>
+            <item name="android:actionBarStyle">@style/MyActionBar</item>
+            <item name="android:textColor">@color/navy</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+        <!-- Action Bar Style -->
+        <style name="MyActionBar"
+            parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+            <item name="windowActionBar">true</item>
+            <item name="windowNoTitle">false</item>
+            <item name="android:background">@color/colorPrimary</item>
+            <item name="android:textColor">@color/white</item>
+            <item name="android:windowActionBarOverlay">true</item>
+            <item name="android:windowTranslucentStatus">true</item>
+            <item name="android:fitsSystemWindows">true</item>
+        </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+        <style name="AppTheme.ActionBarOverlay"  parent="Theme.AppCompat.Light.DarkActionBar">
+            <item name="android:windowActionBarOverlay">true</item>
+            <item name="android:actionBarStyle">@style/MyActionBar1</item>
+            <item name="android:textColor">@color/colorPrimaryDark</item>
+        </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
-        <item name="android:windowActionBarOverlay">true</item>
-    </style>
+        <!-- Action Bar Style -->
+        <style name="MyActionBar1"
+            parent="@android:style/Widget.Holo.ActionBar.TabView">
+            <item name="android:background">@color/colorPrimary</item>
+        </style>
+
+        <style name="AppTheme.NoActionBar">
+            <item name="windowActionBar">false</item>
+            <item name="windowNoTitle">true</item>
+        </style>
+
+
 </resources>

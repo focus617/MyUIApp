@@ -3,6 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.zhxu.root.myapplication.MainActivity">
     <item
+        android:id="@+id/menu_add"
+        android:title="@string/action_add"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_remove"
+        android:title="@string/action_remove"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/menu_search"
         android:title="@string/action_search"
         android:icon="@drawable/ic_action_search"

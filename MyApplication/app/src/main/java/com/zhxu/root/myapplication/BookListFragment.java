@@ -6,6 +6,7 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
@@ -17,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.EOFException;
 import java.io.FileInputStream;
@@ -191,6 +191,8 @@ public class BookListFragment extends ListFragment {
 
         getActivity().setTitle(R.string.app_name);
         Log.d(TAG, "setTitle");
+
+        getListView().setBackgroundColor(Color.WHITE);
         //getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
     }
 
@@ -274,17 +276,18 @@ public class BookListFragment extends ListFragment {
 
         String bookName = bookList.get((int)id).get_BookName();
         // Show a toast if the user clicks on an item
-        Toast.makeText(getActivity(), "Item Clicked: " + bookName, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Item Clicked: " + bookName, Toast.LENGTH_SHORT).show();
+        showPopupMenu(view, (int)id);
 
-        // We need to post a Runnable to show the popup to make sure that the PopupMenu is
+        // We need to post a Runnable to show the menu_popup to make sure that the PopupMenu is
         // correctly positioned. The reason being that the view may change position before the
         // PopupMenu is shown.
-        view.post(new Runnable() {
+/*        view.post(new Runnable() {
             @Override
             public void run() {
                 showPopupMenu(view, (int)id);
             }
-        });
+        });*/
     }
     private void showPopupMenu(final View view, final int id) {
         final BookListFragment.BookShelfListViewAdapter adapter =
@@ -296,7 +299,7 @@ public class BookListFragment extends ListFragment {
         final PopupMenu popup = new PopupMenu(getActivity(), view);
 
         // Inflate our menu resource into the PopupMenu's Menu
-        popup.getMenuInflater().inflate(R.menu.popup, popup.getMenu());
+        popup.getMenuInflater().inflate(R.menu.menu_popup, popup.getMenu());
 
         // Set a listener so we are notified if a menu item is clicked
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -322,7 +325,7 @@ public class BookListFragment extends ListFragment {
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction transaction = fragmentManager.beginTransaction();
                             transaction.replace(R.id.book_list, fragment);
-                            transaction.addToBackStack(null);
+                            transaction.addToBackStack("replace BookReaderFragment");
                             transaction.commit();
                         }
                         return true;

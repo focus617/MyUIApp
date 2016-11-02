@@ -39,7 +39,7 @@ public class BookReaderFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.activity_book_reader, container, false);
+        view = inflater.inflate(R.layout.fragment_book_reader, container, false);
 
         createTestFile();
 
@@ -62,6 +62,14 @@ public class BookReaderFragment extends Fragment {
         mView_BookReader.setBackgroundColor(Color.BLACK);
 
         refresh();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+
+        closeBook();
     }
 
     public void refresh() {

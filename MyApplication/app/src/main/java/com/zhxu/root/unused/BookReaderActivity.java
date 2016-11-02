@@ -45,7 +45,7 @@ public class BookReaderActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_reader);
+        setContentView(R.layout.fragment_book_reader);
 
         mView_BookReader = (TextView) findViewById(R.id.textview_bookreader);
         mView_BookReader.setTextSize(20);
@@ -89,20 +89,8 @@ public class BookReaderActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void onClickOpen(View v) {
-        Log.i(TAG, "Open_Button is clicked");
 
-        Toast.makeText(this, "open the file", Toast.LENGTH_SHORT).show();
-        //   mView_BookReader.setText(load());
-    }
 
-/*    public void onClickNewActivity(View v) {
-        Log.i(TAG, "New_Activity_Button is clicked");
-        Toast.makeText(this, "Start the PopupMenu Activity", Toast.LENGTH_SHORT).show();
-
-        Intent intent = new Intent(this, TestPopupMenuActivity.class);
-        startActivity(intent);
-    }*/
 
     protected BufferedReader loadBook(String bookName) {
         BufferedReader rd = null;
@@ -171,5 +159,12 @@ public class BookReaderActivity extends BaseActivity {
         }
     }
 
+    /*public void onClickNewActivity(View v) {
+        Log.i(TAG, "New_Activity_Button is clicked");
+        Toast.makeText(this, "Start the PopupMenu Activity", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, TestPopupMenuActivity.class);
+        startActivity(intent);
+    }*/
 
 }
