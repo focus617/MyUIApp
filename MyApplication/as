@@ -1,0 +1,3 @@
+cd /opt/android-studio/bin
+sh studio.sh
+
