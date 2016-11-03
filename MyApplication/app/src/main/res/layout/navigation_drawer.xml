@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <!-- the main content view -->
-    <include layout="@layout/activity_main" />
+<!--    <include layout="@layout/layout_content" />-->
 
     <!-- the navigation view -->
     <android.support.design.widget.NavigationView

@@ -3,6 +3,7 @@ package com.zhxu.root.myapplication;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -12,22 +13,20 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.zhxu.root.myUtility.BaseActivity;
+import com.zhxu.root.myapplication.ItemTouchHelper.MyRecyclerHelperCallback;
 
 public class MainActivity extends BaseActivity{
 
@@ -51,18 +50,24 @@ public class MainActivity extends BaseActivity{
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        toolbar.setTitle("My Library");
+        //Toolbar become unusable in case of introducing CollapsingToolbarLayout
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //toolbar.setTitle("My Library");
         //toolbar.setSubtitle("副标题");
         //toolbar.setLogo(R.drawable.ic_launcher);
         //toolbar.setNavigationIcon(android.R.drawable.ic_input_delete);
         //toolbar.setTitleTextColor(Color.WHITE);
 
-/*        mActionBar = getSupportActionBar();
-        if (null != mActionBar) {
-            hideActionBar();
-        }*/
+        //给页面设置工具栏
+        CollapsingToolbarLayout collapsingToolbar =
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        if (collapsingToolbar != null) {
+            //设置隐藏图片时候ToolBar的颜色
+            collapsingToolbar.setContentScrimColor(Color.parseColor("#11B7F3"));
+            //设置工具栏标题
+            collapsingToolbar.setTitle("坚持是一种信仰");
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setBackgroundColor(Color.BLUE);
@@ -86,7 +91,7 @@ public class MainActivity extends BaseActivity{
         };
         manager.addOnBackStackChangedListener(listener);
 
-        //initNavigationView();
+        initNavigationView();
         initRecycleViews();
     }
 
@@ -205,6 +210,7 @@ public class MainActivity extends BaseActivity{
             case R.id.menu_refresh:
                 Toast.makeText(MainActivity.this, "Refreshing will be added", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Menu refresh is selected");
+                recycleAdapter.addAll();
                 return true;
             case R.id.menu_settings:
                 Toast.makeText(MainActivity.this, "Setting will be added", Toast.LENGTH_SHORT).show();
@@ -221,10 +227,8 @@ public class MainActivity extends BaseActivity{
                 drawerLayout.openDrawer(GravityCompat.START);
                 return super.onOptionsItemSelected(item);
             case R.id.menu_add:
-                recycleAdapter.add(1);
-                break;
-            case R.id.menu_remove:
-                recycleAdapter.remove(1);
+                //Toast.makeText(MainActivity.this, "Add the book back", Toast.LENGTH_SHORT).show();
+                recycleAdapter.add(MyRecyclerAdapter.PositionInBookList.MIDDLE);
                 break;
         }
 
@@ -268,18 +272,15 @@ public class MainActivity extends BaseActivity{
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         //设置分隔线  
-        mRecyclerView.addItemDecoration(new DividerItemDecoration_LinearLayout(MainActivity.this, LinearLayoutManager.VERTICAL));
+        //mRecyclerView.addItemDecoration(new DividerItemDecoration_LinearLayout(MainActivity.this,LinearLayoutManager.VERTICAL));
         //mRecyclerView.addItemDecoration(new DividerItemDecoration_GridLayout(MainActivity.this));
 
         //设置Adapter
         recycleAdapter= new MyRecyclerAdapter(MainActivity.this, null);
-        mRecyclerView.setAdapter( recycleAdapter);
+        mRecyclerView.setAdapter(recycleAdapter);
 
-        recycleAdapter.setOnItemClickListener(new MyRecyclerAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view , String data) {
-                Toast.makeText(MainActivity.this,"您点击了："+data, Toast.LENGTH_SHORT).show();
-            }
-        });
+        //实现拖拽功能
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new MyRecyclerHelperCallback());
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 }

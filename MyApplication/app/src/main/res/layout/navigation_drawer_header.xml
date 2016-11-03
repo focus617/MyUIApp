@@ -10,7 +10,7 @@
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/general_book_cover" />
+        android:src="@drawable/thankyou" />
 
     <TextView
         android:layout_marginTop="15dp"
