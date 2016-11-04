@@ -9,6 +9,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -30,11 +31,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ashokvarma.bottomnavigation.BottomNavigationBar;
+import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.zhxu.root.myUtility.BaseActivity;
 import com.zhxu.root.myapplication.ItemTouchHelper.MyRecyclerHelperCallback;
 import com.zhxu.root.viewUtility.CircleImageView;
 
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener{
 
     private static final String TAG = "MainActivity";
 
@@ -99,6 +102,7 @@ public class MainActivity extends BaseActivity{
 
         initNavigationView();
         initRecycleViews();
+        initBottomNavigationBar();
     }
 
     private void initNavigationView(){
@@ -177,6 +181,77 @@ public class MainActivity extends BaseActivity{
         //实现拖拽功能
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new MyRecyclerHelperCallback());
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
+    }
+
+    private void initBottomNavigationBar(){
+        BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
+        bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
+        bottomNavigationBar
+                .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
+
+        bottomNavigationBar
+                .addItem(new BottomNavigationItem(R.drawable.ic_action_home, "Home").setActiveColorResource(R.color.orange))
+                .addItem(new BottomNavigationItem(R.drawable.ic_action_book, "Books").setActiveColorResource(R.color.teal))
+                .addItem(new BottomNavigationItem(R.drawable.ic_action_settings, "Music").setActiveColorResource(R.color.blue))
+                .addItem(new BottomNavigationItem(R.drawable.ic_action_picture, "Photo").setActiveColorResource(R.color.brown))
+                .addItem(new BottomNavigationItem(R.drawable.ic_action_share, "Games").setActiveColorResource(R.color.grey))
+                .setFirstSelectedPosition(0)
+                .initialise();
+        bottomNavigationBar.setTabSelectedListener(this);
+    }
+
+/*    *//** * 设置默认的 *//*
+    private void setDefaultFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.layFrame, HomeFragment.newInstance("Home"));
+        transaction.commit();
+    }
+
+    private ArrayList<Fragment> getFragments() {
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(HomeFragment.newInstance("Home"));
+        fragments.add(BookFragment.newInstance("Books"));
+        fragments.add(MusicFragment.newInstance("Music"));
+        fragments.add(TvFragment.newInstance("Movies & TV"));
+        fragments.add(GameFragment.newInstance("Games"));
+        return fragments;
+    }*/
+
+    @Override
+    public void onTabSelected(int position) {
+/*        if (fragments != null) {
+            if (position < fragments.size()) {
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                Fragment fragment = fragments.get(position);
+                if (fragment.isAdded()) {
+                    ft.replace(R.id.layFrame, fragment);
+                } else {
+                    ft.add(R.id.layFrame, fragment);
+                }
+                ft.commitAllowingStateLoss();
+            }
+        }*/
+
+    }
+
+    @Override
+    public void onTabUnselected(int position) {
+/*        if (fragments != null) {
+            if (position < fragments.size()) {
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                Fragment fragment = fragments.get(position);
+                ft.remove(fragment);
+                ft.commitAllowingStateLoss();
+            }
+        }*/
+    }
+
+    @Override
+    public void onTabReselected(int position) {
+
     }
 /*    @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
