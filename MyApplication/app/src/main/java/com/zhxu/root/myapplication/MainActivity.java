@@ -1,5 +1,7 @@
 package com.zhxu.root.myapplication;
 
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +14,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
@@ -22,11 +25,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhxu.root.myUtility.BaseActivity;
 import com.zhxu.root.myapplication.ItemTouchHelper.MyRecyclerHelperCallback;
+import com.zhxu.root.viewUtility.CircleImageView;
 
 public class MainActivity extends BaseActivity{
 
@@ -44,7 +50,7 @@ public class MainActivity extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.navigation_main);
 
         Log.d(TAG, "onCreate Method is executed");
 
@@ -56,7 +62,7 @@ public class MainActivity extends BaseActivity{
         //toolbar.setTitle("My Library");
         //toolbar.setSubtitle("副标题");
         //toolbar.setLogo(R.drawable.ic_launcher);
-        //toolbar.setNavigationIcon(android.R.drawable.ic_input_delete);
+        //toolbar.setNavigationIcon(R.drawable.ic_action_list);
         //toolbar.setTitleTextColor(Color.WHITE);
 
         //给页面设置工具栏
@@ -95,6 +101,83 @@ public class MainActivity extends BaseActivity{
         initRecycleViews();
     }
 
+    private void initNavigationView(){
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
+        if(null != navigationView ) {
+            navigationView.setBackgroundColor(Color.WHITE);
+            //navigationView.setItemTextColor(ColorStateList.valueOf(Color.BLACK)); //set menu item: color
+            //navigationView.setItemIconTintList(null);  // set menu item: icon color
+            /**设置MenuItem默认选中项**/
+            navigationView.getMenu().getItem(0).setChecked(true);
+
+            //获取头布局文件
+            View headerView = navigationView.getHeaderView(0);
+            CircleImageView userImgView = (CircleImageView)headerView.findViewById(R.id.nav_header_photo);
+            TextView  userNameView = (TextView) headerView.findViewById(R.id.nav_header_text);
+            userImgView.setVisibility(View.VISIBLE);
+            userNameView.setVisibility(View.VISIBLE);
+
+            drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawerLayout.setBackgroundColor(R.color.lightskyblue);
+            drawerLayout.setScrimColor(R.color.blueviolet);
+
+            //设置侧滑菜单选择监听事件
+            navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                    switch (menuItem.getItemId()) {
+                        case R.id.nav_about:
+                        case R.id.nav_blog:
+                        case R.id.nav_ver:
+                        case R.id.nav_switch:
+                            String msg = menuItem.toString();
+                            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            break;
+                        case R.id.nav_exit:
+                            ActivityCollector.finishAll();
+                            return true;
+                    }
+
+                    menuItem.setChecked(true);
+                    //关闭抽屉侧滑菜单
+                    drawerLayout.closeDrawers();
+                    return true;
+                }
+            });
+        }
+    }
+
+    private void initRecycleViews() {
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView.setBackgroundColor(Color.WHITE);
+
+        //设置布局显示方式
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayout.VERTICAL, true);
+        //GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        //StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.HORIZONTAL);
+        layoutManager.setOrientation(OrientationHelper.VERTICAL);
+
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
+        mRecyclerView.setHasFixedSize(true);
+
+        //设置添加删除item时候的动画
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        //设置分隔线
+        //mRecyclerView.addItemDecoration(new DividerItemDecoration_LinearLayout(MainActivity.this,LinearLayoutManager.VERTICAL));
+        //mRecyclerView.addItemDecoration(new DividerItemDecoration_GridLayout(MainActivity.this));
+
+        //设置Adapter
+        recycleAdapter= new MyRecyclerAdapter(MainActivity.this, null);
+        mRecyclerView.setAdapter(recycleAdapter);
+
+        //实现拖拽功能
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new MyRecyclerHelperCallback());
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+    }
 /*    @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
@@ -235,52 +318,4 @@ public class MainActivity extends BaseActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    private void initNavigationView(){
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationView);
-        if(null != navigationView ) {
-            drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-            //设置侧滑菜单选择监听事件
-            navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(MenuItem menuItem) {
-                    menuItem.setChecked(true);
-                    //关闭抽屉侧滑菜单
-                    drawerLayout.closeDrawers();
-                    return true;
-                }
-            });
-        }
-    }
-
-    private void initRecycleViews() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        mRecyclerView.setBackgroundColor(Color.WHITE);
-
-        //设置布局显示方式
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayout.VERTICAL, true);
-        //GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        //StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.HORIZONTAL);
-        layoutManager.setOrientation(OrientationHelper.VERTICAL);
-        
-        mRecyclerView.setLayoutManager(layoutManager);
- 
-        //如果可以确定每个item的高度是固定的，设置这个选项可以提高性能
-        mRecyclerView.setHasFixedSize(true);
-
-        //设置添加删除item时候的动画
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        //设置分隔线  
-        //mRecyclerView.addItemDecoration(new DividerItemDecoration_LinearLayout(MainActivity.this,LinearLayoutManager.VERTICAL));
-        //mRecyclerView.addItemDecoration(new DividerItemDecoration_GridLayout(MainActivity.this));
-
-        //设置Adapter
-        recycleAdapter= new MyRecyclerAdapter(MainActivity.this, null);
-        mRecyclerView.setAdapter(recycleAdapter);
-
-        //实现拖拽功能
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new MyRecyclerHelperCallback());
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
-    }
 }

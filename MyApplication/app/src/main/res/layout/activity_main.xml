@@ -52,25 +52,18 @@
     </android.support.design.widget.AppBarLayout>
 
     <!--可滑动的布局内容-->
-   <android.support.v7.widget.RecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-<!--    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="?android:attr/actionBarSize">
-            &lt;!&ndash; Set content padding in order to keep Action Bar space &ndash;&gt;
 
-        <fragment android:name="com.zhxu.root.myapplication.BookListFragment"
-            android:id="@+id/book_list"
-            android:layout_height="match_parent"
-            android:layout_width="0dp"
-            android:layout_weight="1" />
-    </LinearLayout>-->
+    <!--        <fragment android:name="com.zhxu.root.myapplication.BookListFragment"
+                android:id="@+id/book_list"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1" />-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -82,4 +75,5 @@
         app:layout_anchorGravity="bottom|end|right"
         app:fabSize="auto">
     </android.support.design.widget.FloatingActionButton>
+
 </android.support.design.widget.CoordinatorLayout>

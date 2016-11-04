@@ -45,6 +45,11 @@
         <item name="android:colorBackground">@color/colorPrimaryDark</item>
     </style>
 
+    <!-- Navigation drawer菜单样式 -->
+    <style name="MenuTextStyle">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 
     <!-- Base application theme for Action Bar -->
     <style name="AppTheme1" parent="@style/Theme.AppCompat.Light.DarkActionBar">

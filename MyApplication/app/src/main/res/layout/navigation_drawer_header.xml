@@ -1,22 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="@color/aliceblue"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="220dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/thankyou" />
-
-    <TextView
-        android:layout_marginTop="15dp"
+        android:id="@+id/nav_header_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="我的Draw案例"
-        android:textColor="@android:color/white" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/stone" />
 
-</LinearLayout>
+    <com.zhxu.root.viewUtility.CircleImageView
+        android:id="@+id/nav_header_photo"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:src="@drawable/my_photo"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/whitesmoke"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="62dp"
+        android:layout_marginStart="62dp" />
+
+    <TextView
+        android:id="@+id/nav_header_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:text="徐智勇"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:layout_marginRight="29dp"
+        android:layout_marginEnd="29dp"
+        android:layout_below="@+id/nav_header_photo"
+        android:layout_alignRight="@+id/nav_header_photo"
+        android:layout_alignEnd="@+id/nav_header_photo"
+        android:layout_marginTop="10dp" />
+
+</RelativeLayout>

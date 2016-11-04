@@ -8,35 +8,34 @@
         android:title="Home items">
 
         <item
-            android:id="@+id/nav_blog"
-            android:icon="@drawable/ic_action_settings"
-            android:title="博客地址" />
+            android:id="@+id/nav_switch"
+            android:icon="@drawable/ic_action_refresh"
+            android:title="切换主题" />
 
         <item
             android:id="@+id/nav_ver"
-            android:icon="@drawable/ic_action_location"
+            android:icon="@drawable/ic_action_list"
             android:title="版本信息" />
 
         <item
-            android:id="@+id/nav_about"
-            android:icon="@drawable/ic_action_refresh"
-            android:title="关于我" />
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/ic_action_exit"
+            android:title="退出应用" />
 
     </group>
 
-    <item android:title="Sub items">
-
+    <item android:title="更多">
         <menu>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_action_info"
+                android:title="关于我" />
 
             <item
-                android:id="@+id/sub_exit"
-                android:icon="@drawable/ic_action_search"
-                android:title="退出应用" />
+                android:id="@+id/nav_blog"
+                android:icon="@drawable/ic_action_home"
+                android:title="博客地址" />
 
-            <item
-                android:id="@+id/sub_switch"
-                android:icon="@drawable/ic_action_settings"
-                android:title="切换主题" />
         </menu>
     </item>
 
